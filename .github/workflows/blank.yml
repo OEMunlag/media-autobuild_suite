@@ -28,3 +28,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: ./media-autobuild_suite.bat
+      - name: Configure name
+        run:
+          git config --local user.name github-actions
+      - name: Configure mail
+        run:
+          git config --local user.email github-actions@github.com
+      - name: Stage changes
+        run: git add local64\*
+      - name: Commit changes
+        run: git commit -m "Update build"
+      - name: Push changes
+        run: git push origin master
+
