@@ -38,7 +38,7 @@ jobs:
           git config --local user.email github-actions@github.com
         if: always()
       - name: Stage changes
-        run: git add local64\*
+        run: git add *
         if: always()
       - name: Commit changes
         run: git commit -m "Update build"
