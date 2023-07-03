@@ -24,20 +24,25 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+        if: always()
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: ./media-autobuild_suite.bat
+        if: always()
       - name: Configure name
         run:
           git config --local user.name github-actions
+        if: always()
       - name: Configure mail
         run:
           git config --local user.email github-actions@github.com
+        if: always()
       - name: Stage changes
         run: git add local64\*
+        if: always()
       - name: Commit changes
         run: git commit -m "Update build"
+        if: always()
       - name: Push changes
         run: git push origin master
-
+        if: always()
