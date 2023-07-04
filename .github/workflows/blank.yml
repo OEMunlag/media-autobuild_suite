@@ -42,7 +42,7 @@ jobs:
       - name: remove gitignore
         run: del .gitignore & del .gitattributes
       - name: Stage changes
-        run: git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add 
+        run: git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add local64 & git add local64\ & git add local64\*
         if: always()
       - name: Commit changes
         run: git commit -m "Update build"
