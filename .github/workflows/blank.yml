@@ -33,7 +33,7 @@ jobs:
         run:
           git config --local user.name github-actions
       - name: locate directory
-        run: dir/s/q ..
+        run: cmd /c dir/s/q ..
         if: always()
       - name: Configure mail
         run:
@@ -42,7 +42,7 @@ jobs:
       - name: remove gitignore
         run: del .gitignore & del .gitattributes
       - name: Stage changes
-        run: git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add local64 & git add local64\ & git add local64\*
+        run: cmd /c git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add local64 & git add local64\ & git add local64\*
         if: always()
       - name: Commit changes
         run: git commit -m "Update build"
