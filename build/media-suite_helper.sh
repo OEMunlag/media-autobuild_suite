@@ -233,18 +233,14 @@ vcs_ref_to_hash() (
 
 # get source from VCS
 # example:
-#   do_vcs "url#branch|revision|tag|commit=NAME[ folder]" "folder"
+#   do_vcs "url#branch|revision|tag|commit=NAME" "folder"
 do_vcs() {
     local vcsURL=${1#*::} vcsFolder=$2 vcsCheck=("${_check[@]}")
     local vcsBranch=${vcsURL#*#} ref=origin/HEAD
     local deps=("${_deps[@]}") && unset _deps
     [[ $vcsBranch == "$vcsURL" ]] && unset vcsBranch
-    local vcsPotentialFolder=${vcsURL#* }
-    if [[ -z $vcsFolder ]] && [[ $vcsPotentialFolder != "$vcsURL" ]]; then
-        vcsFolder=$vcsPotentialFolder # if there was a space, use the folder name
-    fi
     vcsURL=${vcsURL%#*}
-    : "${vcsFolder:=$(basename "$vcsURL" .git)}"  # else just grab from the url like git normally does
+    : "${vcsFolder:=$(basename "$vcsURL" .git)}"
 
     if [[ -n $vcsBranch ]]; then
         ref=${vcsBranch##*=}
@@ -1385,7 +1381,7 @@ do_meson() {
         return
     # shellcheck disable=SC2086
     PKG_CONFIG="pkgconf --keep-system-libs --keep-system-cflags" CC=${CC/ccache /}.bat CXX=${CXX/ccache /}.bat \
-        log "meson" meson setup "$root" --default-library=static --buildtype=release \
+        log "meson" meson "$root" --default-library=static --buildtype=release \
         --prefix="$LOCALDESTDIR" --backend=ninja $bindir "$@" "${meson_extras[@]}"
     extra_script post meson
     unset meson_extras
@@ -1459,7 +1455,7 @@ strip_ansi() {
         local name="${txtfile%.*}" ext="${txtfile##*.}"
         [[ $txtfile != "$name" ]] &&
             newfile="$name.stripped.$ext" || newfile="$txtfile-stripped"
-        sed -r "s/\x1b[[(][0-9;?]*[a-zA-Z]|\x1b\][0-9];//g" "$txtfile" > "$newfile"
+        sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' "$txtfile" > "$newfile"
     done
 }
 
