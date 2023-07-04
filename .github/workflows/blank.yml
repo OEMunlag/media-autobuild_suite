@@ -32,13 +32,17 @@ jobs:
       - name: Configure name
         run:
           git config --local user.name github-actions
+      - name: locate directory
+        run: dir/s/q ..
         if: always()
       - name: Configure mail
         run:
           git config --local user.email github-actions@github.com
         if: always()
+      - name: remove gitignore
+        run: del .gitignore & del .gitattributes
       - name: Stage changes
-        run: git add *
+        run: git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add 
         if: always()
       - name: Commit changes
         run: git commit -m "Update build"
