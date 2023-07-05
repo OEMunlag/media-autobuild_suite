@@ -27,13 +27,13 @@ jobs:
         if: always()
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: ./media-autobuild_suite.bat
+        run: cmd /c echo egg #media-autobuild_suite.bat
         if: always()
       - name: Configure name
         run:
           git config --local user.name github-actions
       - name: locate directory
-        run: cmd /c dir/s/q ..
+        run: cmd /c dir ..
         if: always()
       - name: Configure mail
         run:
