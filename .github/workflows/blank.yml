@@ -27,7 +27,7 @@ jobs:
         if: always()
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: cmd /c echo egg #media-autobuild_suite.bat
+        run: ./media-autobuild_suite.bat
         if: always()
       - name: Configure name
         run:
@@ -42,7 +42,7 @@ jobs:
       - name: remove gitignore
         run: del .gitignore & del .gitattributes
       - name: Stage changes
-        run: cmd /c git add * & git add . & git add .. & git add *.* & git add local64/* & git add .\ & git add local64 & git add local64\ & git add local64\*
+        run: cmd /c git add local64 & git add local64\ & git add local64\*
         if: always()
       - name: Commit changes
         run: git commit -m "Update build"
