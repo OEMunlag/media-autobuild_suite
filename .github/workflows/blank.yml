@@ -41,12 +41,7 @@ jobs:
         if: always()
       - name: remove gitignore
         run: del .gitignore & del .gitattributes
-      - name: Stage changes
-        run: cmd /c git add local64
-        if: always()
-      - name: Commit changes
-        run: git commit -m "Update build"
-        if: always()
-      - name: Push changes
-        run: git push origin master
-        if: always()
+      - name: Upload a Build Artifact
+      - uses: actions/upload-artifact@v3.1.2
+        with:
+          path: local64/
